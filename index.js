@@ -2,6 +2,9 @@ let x = 0;
 let y = 0;
 let newX = 0;
 let newY = 0;
+let killX = -1;
+let killY = -1;
+let killRegens = 2;
 let score = 0;
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById("canvas");
@@ -22,6 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
             score++;
             document.getElementById("score").innerText = score;
         }
+        if(score % 5 && score/5 < killRegens && score > 1) {
+            killX = Math.floor(Math.random()*4);
+            killY = Math.floor(Math.random()*4);
+        }
         while(newX == x && newY == y ) {
             newX=Math.floor(Math.random()*4);
             newY=Math.floor(Math.random()*4);
@@ -32,6 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     ctx.fillStyle = "white";
                 } else if (i==newX && e==newY) {
                     ctx.fillStyle = "orange";
+                } else if (i==killX && e==killY){
+                    ctx.fillStyle = "red";
                 } else {
                     ctx.fillStyle = "blue";
                 }
